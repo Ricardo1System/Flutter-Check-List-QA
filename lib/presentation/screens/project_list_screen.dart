@@ -1,4 +1,8 @@
+import 'dart:math';
+
+import 'package:check_list_qa/data/models/project_model.dart';
 import 'package:check_list_qa/presentation/providers/project_provider.dart';
+import 'package:check_list_qa/presentation/screens/module_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import '../../providers/project_provider.dart';
@@ -18,9 +22,18 @@ class ProjectListScreen extends ConsumerWidget {
         itemCount: projects.length,
         itemBuilder: (context, index) {
           final project = projects[index];
-          return ListTile(
-            title: Text(project.name),
-            subtitle: Text(project.description),
+          //Cambiar esta impplementación para dejarlo lo mas limpio posible
+          final model = ProjectModel.fromEntity(project);
+          return InkWell(
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ModuleScreen(project: model),
+                )),
+            child: ListTile(
+              title: Text(project.name),
+              subtitle: Text(project.description),
+            ),
           );
         },
       ),
@@ -63,7 +76,7 @@ class ProjectListScreen extends ConsumerWidget {
               final desc = descController.text.trim();
 
               if (name.isNotEmpty) {
-                notifier.addProject(Project(id: 0, name: name, description: desc, modules: []));
+                notifier.addProject(Project(id: Random().nextInt(0xFFFFFFFF), name: name, description: desc, modules: []));
               }
 
               Navigator.pop(context);

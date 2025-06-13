@@ -17,21 +17,24 @@ class ProjectModelAdapter extends TypeAdapter<ProjectModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ProjectModel(
-      name: fields[0] as String,
-      description: fields[1] as String,
-      modules: (fields[2] as List).cast<ModuleModel>(),
+      name: fields[1] as String,
+      description: fields[2] as String,
+      modules: (fields[3] as List?)?.cast<ModuleModel>(),
+      id: fields[0] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, ProjectModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.name)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.description)
+      ..write(obj.name)
       ..writeByte(2)
+      ..write(obj.description)
+      ..writeByte(3)
       ..write(obj.modules);
   }
 
@@ -57,19 +60,22 @@ class ModuleModelAdapter extends TypeAdapter<ModuleModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ModuleModel(
-      name: fields[0] as String,
-      description: fields[1] as String,
-      activities: (fields[3] as List).cast<ActivityModel>(),
+      id: fields[0] as int,
+      name: fields[1] as String,
+      description: fields[2] as String,
+      activities: (fields[3] as List?)?.cast<ActivityModel>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, ModuleModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.name)
+      ..write(obj.id)
       ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
       ..write(obj.description)
       ..writeByte(3)
       ..write(obj.activities);
@@ -97,21 +103,24 @@ class ActivityModelAdapter extends TypeAdapter<ActivityModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ActivityModel(
-      name: fields[0] as String,
-      detail: fields[1] as String,
-      check: fields[2] as bool,
+      id: fields[0] as int,
+      name: fields[1] as String,
+      detail: fields[2] as String,
+      check: fields[3] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, ActivityModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.name)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.detail)
+      ..write(obj.name)
       ..writeByte(2)
+      ..write(obj.detail)
+      ..writeByte(3)
       ..write(obj.check);
   }
 

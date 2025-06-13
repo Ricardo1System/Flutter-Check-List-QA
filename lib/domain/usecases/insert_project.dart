@@ -7,6 +7,6 @@ class InsertProject {
   InsertProject(this.repository);
 
   Future<void> call(Project project) async {
-    await repository.insert(project);
+    await repository.insertProject(project);
   }
 }

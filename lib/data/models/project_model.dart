@@ -8,63 +8,78 @@ part 'project_model.g.dart';
 @HiveType(typeId: 0)
 class ProjectModel extends HiveObject {
   @HiveField(0)
-  String name;
+  int id;
 
   @HiveField(1)
-  String description;
+  String name;
 
   @HiveField(2)
-  List<ModuleModel> modules;
+  String description;
 
-  ProjectModel({required this.name, required this.description, required this.modules});
+  @HiveField(3)
+  List<ModuleModel>? modules;
 
-  Project toEntity() => Project(id: key ?? 0, name: name, description: description, modules: modules.map((m) => m.toEntity()).toList());
+  ProjectModel({required this.name, required this.description, required this.modules, required this.id});
+
+  Project toEntity() => Project(id: id, name: name, description: description, modules: modules?.map((m) => m.toEntity()).toList() ?? []);
 
   static ProjectModel fromEntity(Project entity) =>
-      ProjectModel(name: entity.name, description: entity.description, modules: entity.modules.map((m) => ModuleModel.fromEntity(m)).toList() );
+      ProjectModel( id: entity.id, name: entity.name, description: entity.description, modules: entity.modules?.map((m) => ModuleModel.fromEntity(m)).toList() ?? [] );
 }
 
 @HiveType(typeId: 1)
 class ModuleModel extends HiveObject {
   @HiveField(0)
-  String name;
+  int id;
 
   @HiveField(1)
+  String name;
+
+  @HiveField(2)
   String description;
 
   @HiveField(3)
-  List<ActivityModel> activities;
+  List<ActivityModel>? activities;
 
-  ModuleModel({required this.name, required this.description, required this.activities});
+  ModuleModel({required this.id, required this.name, required this.description, required this.activities});
 
-  Module toEntity() => Module(id: key ?? 0, name: name, description: description, activities: activities.map((m) => m.toEntity()).toList());
+  Module toEntity() => Module( id: id, name: name, description: description, activities: activities?.map((m) => m.toEntity()).toList() ?? []);
 
   static ModuleModel fromEntity(Module entity) => ModuleModel(
+        id:  entity.id,
         name: entity.name,
         description: entity.description,
-        activities: entity.activities.map((m) => ActivityModel.fromEntity(m)).toList(),
+        activities: entity.activities?.map((m) => ActivityModel.fromEntity(m)).toList() ?? [],
       );
 
 }
 
 @HiveType(typeId: 2)
 class ActivityModel extends HiveObject {
+
   @HiveField(0)
-  String name;
+  int id;
+
   @HiveField(1)
-  String detail;
+  String name;
+
   @HiveField(2)
+  String detail;
+  
+  @HiveField(3)
   bool check;
 
   ActivityModel({
+    required this.id,
     required this.name,
     required this.detail,
     required this.check,
   });
 
-  Activity toEntity() => Activity(id: key ?? 0, name: name, check: check, detail: detail);
+  Activity toEntity() => Activity( id: id, name: name, check: check, detail: detail);
 
     static ActivityModel fromEntity(Activity entity) => ActivityModel(
+        id: entity.id,
         name: entity.name,
         check: entity.check,
         detail: entity.detail,

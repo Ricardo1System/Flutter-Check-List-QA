@@ -7,6 +7,6 @@ class GetProjects {
   GetProjects(this.repository);
 
   Future<List<Project>> call() async {
-    return await repository.getAll();
+    return await repository.getAllProjects();
   }
 }

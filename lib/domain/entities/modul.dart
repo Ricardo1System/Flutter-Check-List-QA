@@ -4,11 +4,11 @@ class Module {
   final int id;
   final String name;
   final String description;
-  final List<Activity> activities;
+  final List<Activity>? activities;
 
   Module(
       {required this.id,
       required this.name,
       required this.description,
-      required this.activities});
+      this.activities = const []});
 }
