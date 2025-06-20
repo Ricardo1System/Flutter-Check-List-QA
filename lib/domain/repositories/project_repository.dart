@@ -28,6 +28,18 @@ abstract class ProjectRepository {
     int projectId,
     int moduleId,
   );
+
+  Future<void> updateActivity(
+    int projectId,
+    int moduleId,
+    Activity activity,
+  );
+
+  Future<void> updateModule(
+    int projectId,
+    Module module,
+  );
+
   Future<void> reorderActivities(
     int projectId,
     int moduleId,

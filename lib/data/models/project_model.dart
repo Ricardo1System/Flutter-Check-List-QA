@@ -66,22 +66,21 @@ class ActivityModel extends HiveObject {
   @HiveField(2)
   String detail;
   
-  @HiveField(3)
-  bool check;
+  // @HiveField(3)
+  // bool check;
 
   ActivityModel({
     required this.id,
     required this.name,
     required this.detail,
-    required this.check,
+    // required this.check,
   });
 
-  Activity toEntity() => Activity( id: id, name: name, check: check, detail: detail);
+  Activity toEntity() => Activity( id: id, name: name, detail: detail);
 
     static ActivityModel fromEntity(Activity entity) => ActivityModel(
         id: entity.id,
         name: entity.name,
-        check: entity.check,
         detail: entity.detail,
       );
 

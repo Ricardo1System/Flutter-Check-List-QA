@@ -106,22 +106,19 @@ class ActivityModelAdapter extends TypeAdapter<ActivityModel> {
       id: fields[0] as int,
       name: fields[1] as String,
       detail: fields[2] as String,
-      check: fields[3] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, ActivityModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.detail)
-      ..writeByte(3)
-      ..write(obj.check);
+      ..write(obj.detail);
   }
 
   @override

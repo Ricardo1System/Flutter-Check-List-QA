@@ -30,10 +30,16 @@ class ProjectRepositoryImpl implements ProjectRepository {
 
   @override
   Future<void> deleteActivity(int projectId, int moduleId, int activityId) async {
-    final project = (await local.getAllProjects())[projectId];
-    final module = project.modules![moduleId];
-
-    module.activities!.removeWhere((a) => a.id == activityId);
+    final projectList = await local.getAllProjects();
+    final project = projectList.firstWhere((e) => e.id ==projectId,
+    orElse: () => throw Exception("No se encontró el proyecto con de la actividad"),);
+    final moduleList = project.modules ??=[];
+    final module = moduleList.firstWhere((e) => e.id == moduleId,
+    orElse: () => throw Exception("No se encontró el módulo de la actividad"),);
+    final moduleIndex = moduleList.indexWhere((e) => e.id == moduleId,);
+    final activityList =module.activities ??=[];
+    activityList.removeWhere((e) => e.id == activityId,);
+    project.modules![moduleIndex].activities=activityList;
     await project.save();
   }
 
@@ -67,8 +73,7 @@ class ProjectRepositoryImpl implements ProjectRepository {
   }
 
   @override
-  Future<void> insertActivity(
-      Activity activity, int projectId, int moduleId) async {
+  Future<void> insertActivity( Activity activity, int projectId, int moduleId) async {
     final allProjects = await local.getAllProjects();
     final project = allProjects.firstWhere(
       (p) => p.id == projectId,
@@ -129,6 +134,45 @@ class ProjectRepositoryImpl implements ProjectRepository {
     modules.insert(newIndex, moved);
 
     await project.save(); // HiveObject.save()
+  }
+  
+  @override
+  Future<void> updateActivity(int projectId, int moduleId, Activity activityUpdate) async {
+    final allProjects = await local.getAllProjects();
+    final project = allProjects.firstWhere(
+      (p) => p.id == projectId,
+      orElse: () =>
+          throw Exception('Proyecto no encontrado con id: $projectId'),
+    );
+    final module = project.modules?.firstWhere(
+      (e) => e.id == moduleId,
+    );
+    final index = project.modules?.indexOf(module!);
+    var activities = module!.activities ??= [];
+    var oldActivity = activities.firstWhere((e) => e.id == activityUpdate.id,);
+    final indexOldActivity = activities.indexOf(oldActivity);
+    activities.remove(oldActivity);
+    activities.insert(indexOldActivity, ActivityModel.fromEntity(activityUpdate));
+    project.modules![index!].activities = activities;
+    await project.save();
+  }
+
+  @override
+  Future<void> updateModule(int projectId, Module moduleUpdate ) async {
+    final allProjects = await local.getAllProjects();
+    final project = allProjects.firstWhere(
+      (p) => p.id == projectId,
+      orElse: () =>
+          throw Exception('Proyecto no encontrado con id: $projectId'),
+    );
+    final module = project.modules?.firstWhere(
+      (e) => e.id == moduleUpdate.id,
+    );
+    final index = project.modules?.indexOf(module!);
+    module!.name = moduleUpdate.name;
+    module.description = moduleUpdate.description;
+    project.modules![index!]=module;
+    await project.save();
   }
   
 }

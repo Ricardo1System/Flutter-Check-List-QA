@@ -1,4 +1,5 @@
 
+import 'package:check_list_qa/core/theme/theme.dart';
 import 'package:check_list_qa/data/models/project_model.dart';
 import 'package:check_list_qa/presentation/screens/project_list_screen.dart';
 import 'package:flutter/material.dart';
@@ -29,10 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'QA CheckList',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: theme(),
       home: const ProjectListScreen(),
     );
   }
