@@ -1,7 +1,8 @@
 // presentation/providers/module_usecases_providers.dart
 
-import 'package:check_list_qa/domain/usecases/delete_activity.dart';
-import 'package:check_list_qa/domain/usecases/update_activity.dart';
+import 'package:check_list_qa/domain/usecases/activity_usecases/delete_activity.dart';
+import 'package:check_list_qa/domain/usecases/activity_usecases/get_activities.dart';
+import 'package:check_list_qa/domain/usecases/activity_usecases/update_activity.dart';
 import 'package:check_list_qa/presentation/providers/project_usecases_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
@@ -9,7 +10,7 @@ import 'package:hive/hive.dart';
 import '../../../data/models/project_model.dart';
 import '../../../data/repositories/project_repository_impl.dart';
 import '../../../domain/repositories/project_repository.dart';
-import '../../../domain/usecases/add_activity.dart';
+import '../../../domain/usecases/activity_usecases/add_activity.dart';
 
 final projectBoxProvider = Provider<Box<ProjectModel>>((ref) {
   return Hive.box<ProjectModel>('projects');
@@ -18,6 +19,11 @@ final projectBoxProvider = Provider<Box<ProjectModel>>((ref) {
 final projectRepositoryProvider = Provider<ProjectRepository>((ref) {
   final local = ref.watch(projectLocalDataSourceProvider);
   return ProjectRepositoryImpl(local);
+});
+
+final getActivitiesUseCaseProvider = Provider<GetActivitiesFromModule>((ref) {
+  final repo = ref.watch(projectRepositoryProvider);
+  return GetActivitiesFromModule(repo);
 });
 
 final addActivityUseCaseProvider = Provider<AddActivityToModule>((ref) {

@@ -1,7 +1,7 @@
 // domain/usecases/add_activity.dart
 
-import '../entities/activity.dart';
-import '../repositories/project_repository.dart';
+import '../../entities/activity.dart';
+import '../../repositories/project_repository.dart';
 
 class AddActivityToModule {
   final ProjectRepository repo;

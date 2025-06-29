@@ -1,6 +1,6 @@
 // domain/usecases/add_module.dart
 
-import '../repositories/project_repository.dart';
+import '../../repositories/project_repository.dart';
 
 class DeleteModuleFromProject {
   final ProjectRepository repo;

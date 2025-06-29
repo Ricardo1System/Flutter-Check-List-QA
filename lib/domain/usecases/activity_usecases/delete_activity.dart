@@ -1,6 +1,6 @@
 // domain/usecases/add_activity.dart
 
-import '../repositories/project_repository.dart';
+import '../../repositories/project_repository.dart';
 
 class DeleteActivityFromModule {
   final ProjectRepository repo;

@@ -2,7 +2,7 @@
 
 import 'package:check_list_qa/domain/entities/modul.dart';
 
-import '../repositories/project_repository.dart';
+import '../../repositories/project_repository.dart';
 
 class AddModuleToProject {
   final ProjectRepository repo;

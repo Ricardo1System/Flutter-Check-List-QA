@@ -59,17 +59,17 @@ class ProjectRepositoryImpl implements ProjectRepository {
   @override
   Future<List<Activity>> getAllActivity(int projectId, int moduleId) async {
     final allProjects = await local.getAllProjects();
-    return allProjects[projectId]
-        .modules![moduleId]
-        .activities!
-        .map((e) => e.toEntity())
-        .toList();
+    var project = allProjects.firstWhere((e) => e.id == projectId,);
+    var module = project.modules!.firstWhere((e) => e.id == moduleId,);
+    return module.activities?.map((e) => e.toEntity(),).toList() ?? [];
   }
 
   @override
   Future<List<Module>> getAllModule(int projectId) async {
     final allProjects = await local.getAllProjects();
-    return allProjects[projectId].modules!.map((e) => e.toEntity()).toList();
+    var moduleModellist = allProjects.firstWhere((e) => e.id == projectId,).modules;
+    moduleModellist ??=[];
+    return moduleModellist.map((e) => e.toEntity()).toList();
   }
 
   @override

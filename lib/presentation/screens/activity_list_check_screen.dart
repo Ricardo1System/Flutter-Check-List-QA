@@ -26,6 +26,11 @@ class _ActivityScreenState extends ConsumerState<ActivityScreen> {
   final detailController = TextEditingController();
   Activity? activityUpdating;
 
+  @override
+  void initState() {
+    ref.read(activityListProvider(widget.module).notifier).loadActivities(widget.projectId);
+    super.initState();
+  }
 
 
   @override

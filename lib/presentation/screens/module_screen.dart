@@ -22,6 +22,12 @@ class _ModuleScreenState extends ConsumerState<ModuleScreen> {
     Module? moduleUpdating;
 
     @override
+  void initState() {
+    ref.read(moduleListProvider(widget.project).notifier).loadModules();
+    super.initState();
+  }
+
+    @override
   void dispose() {
     nameController.dispose();
     descriptionController.dispose();
@@ -34,7 +40,6 @@ class _ModuleScreenState extends ConsumerState<ModuleScreen> {
     final modules = ref.watch(moduleListProvider(widget.project));
     final isAdding = ref.watch(isAddingModuleProvider);
     final isUpdating = ref.watch(isUpdatingModuleProvider);
-
 
     onSave() {
       final name = nameController.text.trim();

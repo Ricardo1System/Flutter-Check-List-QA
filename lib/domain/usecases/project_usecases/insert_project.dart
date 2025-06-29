@@ -1,5 +1,5 @@
-import '../entities/project.dart';
-import '../repositories/project_repository.dart';
+import '../../entities/project.dart';
+import '../../repositories/project_repository.dart';
 
 class InsertProject {
   final ProjectRepository repository;
