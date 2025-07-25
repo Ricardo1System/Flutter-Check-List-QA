@@ -1,7 +1,7 @@
 
 import 'package:check_list_qa/core/theme/theme.dart';
 import 'package:check_list_qa/data/models/project_model.dart';
-import 'package:check_list_qa/presentation/screens/project_list_screen.dart';
+import 'package:check_list_qa/presentation/screens/list_screens/project_screens/project_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -15,6 +15,7 @@ Future<void> main() async {
   await Hive.initFlutter(dir.path);
   Hive.registerAdapter(ProjectModelAdapter());
   Hive.registerAdapter(ModuleModelAdapter());
+  Hive.registerAdapter(RuleModelAdapter());
   Hive.registerAdapter(ActivityModelAdapter());
   await Hive.openBox<ProjectModel>('projects');
   

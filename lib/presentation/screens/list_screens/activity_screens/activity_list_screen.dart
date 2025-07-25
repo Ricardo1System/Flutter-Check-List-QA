@@ -8,7 +8,7 @@ import 'package:check_list_qa/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/entities/activity.dart';
+import '../../../../domain/entities/activity.dart';
 
 
 class ActivityScreen extends ConsumerStatefulWidget {

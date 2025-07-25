@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../data/datasources/project_local_datasource_impl.dart';
-import '../../data/repositories/project_repository_impl.dart';
-import '../../domain/usecases/project_usecases/get_projects.dart';
-import '../../domain/usecases/project_usecases/insert_project.dart';
+import '../../../../data/datasources/project_local_datasource_impl.dart';
+import '../../../data/repositories/project_repository_impl.dart';
+import '../../../domain/usecases/project_usecases/get_projects.dart';
+import '../../../domain/usecases/project_usecases/insert_project.dart';
 
 final projectLocalDataSourceProvider = Provider((ref) {
   return ProjectLocalDataSourceImpl();

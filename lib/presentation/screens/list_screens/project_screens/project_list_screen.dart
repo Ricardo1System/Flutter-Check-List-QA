@@ -1,13 +1,14 @@
 import 'package:check_list_qa/core/theme/text_styles.dart';
 import 'package:check_list_qa/core/utils/id_generator.dart';
 import 'package:check_list_qa/data/models/project_model.dart';
-import 'package:check_list_qa/presentation/providers/project_provider.dart';
-import 'package:check_list_qa/presentation/screens/module_screen.dart';
+import 'package:check_list_qa/presentation/providers/projects_provider/project_provider.dart';
+import 'package:check_list_qa/presentation/screens/list_screens/module_screens/module_list_screen.dart';
+import 'package:check_list_qa/presentation/screens/test_screens/test_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // import '../../providers/project_provider.dart';
-import '../../../domain/entities/project.dart';
+import '../../../../../domain/entities/project.dart';
 
 class ProjectListScreen extends ConsumerWidget {
   const ProjectListScreen({super.key});
@@ -81,7 +82,13 @@ class ProjectListScreen extends ConsumerWidget {
                 ).then((value) {
                   switch (value) {
                     case "test":
-                      
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TestScreen(
+                                project: project,
+                              ),
+                            ));
                       break;
                     case "edit":
                       

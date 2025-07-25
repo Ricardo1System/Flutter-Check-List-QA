@@ -3,7 +3,7 @@
 import 'package:check_list_qa/domain/usecases/modul_usecases/delete_module.dart';
 import 'package:check_list_qa/domain/usecases/modul_usecases/get_modules.dart';
 import 'package:check_list_qa/domain/usecases/modul_usecases/update_module.dart';
-import 'package:check_list_qa/presentation/providers/project_usecases_providers.dart';
+import 'package:check_list_qa/presentation/providers/projects_provider/project_usecases_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 

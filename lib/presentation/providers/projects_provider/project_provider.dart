@@ -1,8 +1,8 @@
 
 import 'package:check_list_qa/domain/usecases/usecases.dart';
-import 'package:check_list_qa/presentation/providers/project_usecases_providers.dart';
+import 'package:check_list_qa/presentation/providers/projects_provider/project_usecases_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../domain/entities/project.dart';
+import '../../../../domain/entities/project.dart';
 
 // Estado de la lista de proyectos
 final projectListProvider = StateNotifierProvider<ProjectListNotifier, List<Project>>((ref) {

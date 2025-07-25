@@ -3,7 +3,7 @@ import 'package:check_list_qa/core/utils/id_generator.dart';
 import 'package:check_list_qa/data/models/project_model.dart';
 import 'package:check_list_qa/domain/entities/modul.dart';
 import 'package:check_list_qa/presentation/providers/modules_provider/module_provider.dart';
-import 'package:check_list_qa/presentation/screens/activity_list_check_screen.dart';
+import 'package:check_list_qa/presentation/screens/list_screens/activity_screens/activity_list_screen.dart';
 import 'package:check_list_qa/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
