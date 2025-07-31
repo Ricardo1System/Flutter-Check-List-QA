@@ -19,11 +19,14 @@ final projectRepositoryProvider = Provider<ProjectRepository>((ref) {
   return ProjectRepositoryImpl(local);
 });
 
-//Module
-
 final getActivitiesUseCaseProvider = Provider<GetActivitiesFromModule>((ref) {
   final repo = ref.watch(projectRepositoryProvider);
   return GetActivitiesFromModule(repo);
+});
+
+final getActivitiesForSubModuleUseCaseProvider = Provider<GetActivitiesFromSubModule>((ref) {
+  final repo = ref.watch(projectRepositoryProvider);
+  return GetActivitiesFromSubModule(repo);
 });
 
 final addActivityUseCaseProvider = Provider<AddActivityToModule>((ref) {
@@ -39,26 +42,4 @@ final updateActivityUseCaseProvider = Provider<UpdateActivityFromModule>((ref){
 final deleteActivityUseCaseProvider = Provider<DeleteActivityFromModule>((ref) {
   final repo = ref.watch(projectRepositoryProvider);
   return DeleteActivityFromModule(repo);
-});
-
-//SubModule
-
-final getActivitiesForSubModuleUseCaseProvider = Provider<GetActivitiesFromSubModule>((ref) {
-  final repo = ref.watch(projectRepositoryProvider);
-  return GetActivitiesFromSubModule(repo);
-});
-
-final addActivityToSubModuleUseCaseProvider = Provider<AddActivityToSubModule>((ref) {
-  final repo = ref.watch(projectRepositoryProvider);
-  return AddActivityToSubModule(repo);
-});
-
-final updateActivityFromSubModuleUseCaseProvider = Provider<UpdateActivityFromSubModule>((ref){
-  final repo = ref.watch(projectRepositoryProvider);
-  return UpdateActivityFromSubModule(repo);
-});
-
-final deleteActivityFromSubModuleUseCaseProvider = Provider<DeleteActivityFromSubModule>((ref) {
-  final repo = ref.watch(projectRepositoryProvider);
-  return DeleteActivityFromSubModule(repo);
 });

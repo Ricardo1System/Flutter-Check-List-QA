@@ -1,4 +1,4 @@
-import 'package:check_list_qa/domain/entities/modul.dart';
+import 'package:check_list_qa/domain/entities/module.dart';
 
 import '../../repositories/project_repository.dart';
 

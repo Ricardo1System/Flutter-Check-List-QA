@@ -8,6 +8,15 @@ class AddActivityToModule {
   AddActivityToModule(this.repo);
 
   Future<void> call(int projectId, int module, Activity activity) {
-    return repo.insertActivity(activity, projectId, module,);
+    return repo.insertActivity(projectId, module, activity);
+  }
+}
+
+class AddActivityToSubModule {
+  final ProjectRepository repo;
+  AddActivityToSubModule(this.repo);
+
+  Future<void> call(int projectId, int module, int subModule, Activity activity) {
+    return repo.insertActivityFromSubModule(projectId, module, subModule, activity,);
   }
 }

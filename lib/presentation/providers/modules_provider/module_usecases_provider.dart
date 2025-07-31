@@ -5,16 +5,10 @@ import 'package:check_list_qa/domain/usecases/modul_usecases/get_modules.dart';
 import 'package:check_list_qa/domain/usecases/modul_usecases/update_module.dart';
 import 'package:check_list_qa/presentation/providers/projects_provider/project_usecases_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
 
-import '../../../data/models/project_model.dart';
 import '../../../data/repositories/project_repository_impl.dart';
 import '../../../domain/repositories/project_repository.dart';
 import '../../../domain/usecases/modul_usecases/add_module.dart';
-
-final projectBoxProvider = Provider<Box<ProjectModel>>((ref) {
-  return Hive.box<ProjectModel>('projects');
-});
 
 final projectRepositoryProvider = Provider<ProjectRepository>((ref) {
   final local = ref.watch(projectLocalDataSourceProvider);

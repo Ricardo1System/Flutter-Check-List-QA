@@ -12,3 +12,11 @@ class GetActivitiesFromModule {
     return repo.getAllActivity(projectId, moduleId);
   }
 }
+class GetActivitiesFromSubModule {
+  final ProjectRepository repo;
+  GetActivitiesFromSubModule(this.repo);
+
+  Future<List<Activity>> call(int projectId, int moduleId, int subModuleId) {
+    return repo.getAllActivityForSubModule(projectId, moduleId, subModuleId);
+  }
+}

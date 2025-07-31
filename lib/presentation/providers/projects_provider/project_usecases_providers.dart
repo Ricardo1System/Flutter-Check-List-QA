@@ -19,6 +19,11 @@ final getProjectsProvider = Provider<GetProjects>((ref) {
   return GetProjects(repo);
 });
 
+final getProjectForIdProvider = Provider<GetProjectForId>((ref) {
+  final repo = ref.watch(projectRepositoryProvider);
+  return GetProjectForId(repo);
+});
+
 final insertProjectProvider = Provider<InsertProject>((ref) {
   final repo = ref.watch(projectRepositoryProvider);
   return InsertProject(repo);

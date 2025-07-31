@@ -1,9 +1,9 @@
 import 'package:check_list_qa/core/theme/text_styles.dart';
 import 'package:check_list_qa/core/utils/id_generator.dart';
 import 'package:check_list_qa/data/models/project_model.dart';
-import 'package:check_list_qa/domain/entities/modul.dart';
+import 'package:check_list_qa/domain/entities/module.dart';
 import 'package:check_list_qa/presentation/providers/modules_provider/module_provider.dart';
-import 'package:check_list_qa/presentation/screens/list_screens/activity_screens/activity_list_screen.dart';
+import 'package:check_list_qa/presentation/screens/list_screens/module_screens/module_detail_screen.dart';
 import 'package:check_list_qa/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,7 +23,7 @@ class _ModuleScreenState extends ConsumerState<ModuleScreen> {
 
     @override
   void initState() {
-    ref.read(moduleListProvider(widget.project).notifier).loadModules();
+    ref.read(moduleListNotifierProvider.notifier).loadModules(widget.project);
     super.initState();
   }
 
@@ -37,7 +37,7 @@ class _ModuleScreenState extends ConsumerState<ModuleScreen> {
 
  @override
   Widget build(BuildContext context) {
-    final modules = ref.watch(moduleListProvider(widget.project));
+    final modules = ref.watch(moduleListNotifierProvider);
     final isAdding = ref.watch(isAddingModuleProvider);
     final isUpdating = ref.watch(isUpdatingModuleProvider);
 
@@ -46,7 +46,7 @@ class _ModuleScreenState extends ConsumerState<ModuleScreen> {
       final desc = descriptionController.text.trim();
       if (name.isEmpty) return;
       final module = Module(id: IdGenerator.generate(), name: name, description: desc);
-      ref.read(moduleListProvider(widget.project).notifier).addModule(module);
+      ref.read(moduleListNotifierProvider.notifier).addModule(widget.project, module);
       nameController.clear();
       descriptionController.clear();
       ref.read(isAddingModuleProvider.notifier).state = false;
@@ -57,7 +57,7 @@ class _ModuleScreenState extends ConsumerState<ModuleScreen> {
       final desc = descriptionController.text.trim();
       if (name.isEmpty) return;
       final module = Module(id: moduleUpdating!.id, name: name, description: desc);
-      ref.read(moduleListProvider(widget.project).notifier).updatingModule(module);
+      ref.read(moduleListNotifierProvider.notifier).updatingModule(widget.project, module);
       nameController.clear();
       descriptionController.clear();
       ref.read(isUpdatingModuleProvider.notifier).state = false;
@@ -111,10 +111,10 @@ class _ModuleScreenState extends ConsumerState<ModuleScreen> {
                            descriptionController.text = module.description;
                            return false;
                           case DismissDirection.endToStart:
-                          ref.read(moduleListProvider(widget.project).notifier)
-                          .removeFromState(module);
-                          ref.read(moduleListProvider(widget.project).notifier)
-                          .deleteModule(widget.project.id, module);
+                          ref.read(moduleListNotifierProvider.notifier)
+                          .removeFromState(widget.project, module);
+                          ref.read(moduleListNotifierProvider.notifier)
+                          .deleteModule(widget.project, module);
 
                           return true;
                           default:

@@ -10,3 +10,13 @@ class GetProjects {
     return await repository.getAllProjects();
   }
 }
+
+class GetProjectForId {
+  final ProjectRepository repository;
+
+  GetProjectForId(this.repository);
+
+  Future<Project> call(int projectId) async {
+    return await repository.getProjectForId(projectId);
+  }
+}
