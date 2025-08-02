@@ -245,16 +245,6 @@ class _ActivityScreenState extends ConsumerState<ActivitySubModuleScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           FloatingActionButton(
-            heroTag: "FloationActionButtonModule",
-            onPressed: () {
-              ref.read(isAddingSubModuleProvider.notifier).state =
-                  !ref.read(isAddingSubModuleProvider.notifier).state;
-              ref.read(isAddingActivitySubModuleProvider.notifier).state = false;
-              ref.read(isAddingRuleSubModuleProvider.notifier).state = false;
-            },
-            child: const Icon(Icons.stacked_bar_chart_outlined),
-          ),
-          FloatingActionButton(
             heroTag: "FloationActionButtonRule",
             onPressed: () {
               ref.read(isAddingRuleSubModuleProvider.notifier).state =
