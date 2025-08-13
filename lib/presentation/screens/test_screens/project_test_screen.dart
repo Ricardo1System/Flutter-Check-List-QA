@@ -81,16 +81,11 @@ class _ProjectTestScreenState extends ConsumerState<ProjectTestScreen> {
     });
   }
 
-  checkActivity(int moduleIndex, int activityIndex, bool value) {
+  checkSubModuleActivity(
+      int moduleIndex, int subModuleIndex, int activityIndex, bool value) {
     setState(() {
-      project.modules![moduleIndex].activities![activityIndex].isCheck = value;
-    });
-    getData();
-  }
-
-  checkSubModuleActivity(int moduleIndex, int subModuleIndex, int activityIndex, bool value) {
-    setState(() {
-      project.modules![moduleIndex].subModules![subModuleIndex].activities![activityIndex].isCheck = value;
+      project.modules![moduleIndex].subModules![subModuleIndex]
+          .activities![activityIndex].isCheck = value;
     });
     getData();
   }
@@ -189,91 +184,72 @@ class _ProjectTestScreenState extends ConsumerState<ProjectTestScreen> {
             ),
             Expanded(
               flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: ListView.separated(
-                    itemBuilder: (context, activityIndex) {
-                      return Row(
+              child: ListView(
+                children: [
+                  ...project.modules![moduleCheck].activities!.map(
+                    (activityTest) {
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Row(
+                          children: [
+                            Text(activityTest.name),
+                            const Spacer(),
+                            Checkbox(
+                              value: activityTest.isCheck,
+                              onChanged: (value) {
+                                setState(() {
+                                  activityTest.isCheck = value ?? false;
+                                  getData();
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  ...project.modules![moduleCheck].subModules!.map(
+                    (sb) {
+                      return Column(
                         children: [
-                          Text(project.modules?[moduleCheck]
-                                  .activities?[activityIndex].name ??
-                              ""),
-                          const Spacer(),
-                          Checkbox(
-                            value: project.modules?[moduleCheck]
-                                .activities?[activityIndex].isCheck,
-                            onChanged: (value) => checkActivity(
-                                moduleCheck, activityIndex, value ?? false),
+                          Container(
+                            width: double.infinity,
+                            color: Colors.blueGrey,
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                              sb.name,
+                              style: const TextStyle(color: Colors.white),
+                            ),
                           ),
+                          ...sb.activities!.map(
+                            (a) {
+                              return Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Row(
+                                  children: [
+                                    Text(a.name),
+                                    const Spacer(),
+                                    Checkbox(
+                                      value: a.isCheck,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          a.isCheck = value ?? false;
+                                          getData();
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          )
                         ],
                       );
                     },
-                    separatorBuilder: (context, index) {
-                      return const Divider();
-                    },
-                    itemCount:
-                        project.modules?[moduleCheck].activities?.length ?? 0),
+                  )
+                ],
               ),
             ),
-            Expanded(
-              flex: 4,
-              child: ListView.separated(
-                  itemBuilder: (context, subModuleIndex) {
-                    return Column(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          color: Colors.blueGrey,
-                          margin: const EdgeInsets.only(right: 80.0),
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text(project.modules?[moduleCheck]
-                                  .subModules?[subModuleIndex].name ??
-                              "", style: const TextStyle(color: Colors.white),),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          height: MediaQuery.of(context).size.height * 0.3,
-                          child: ListView.separated(
-                            itemBuilder: (context, subModuleActivityIndex) {
-                              return Row(
-                                children: [
-                                  Text(project.modules?[moduleCheck]
-                                          .subModules?[subModuleIndex].name ??
-                                      ""),
-                                  const Spacer(),
-                                  Checkbox(
-                                    value: project
-                                        .modules?[moduleCheck]
-                                        .subModules?[subModuleIndex]
-                                        .activities?[subModuleActivityIndex]
-                                        .isCheck,
-                                    onChanged: (value) =>
-                                        checkSubModuleActivity(moduleCheck, subModuleIndex,
-                                            subModuleActivityIndex, value ?? false),
-                                  ),
-                                ],
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return const Divider();
-                            },
-                            itemCount: project
-                                    .modules?[moduleCheck]
-                                    .subModules?[subModuleIndex]
-                                    .activities
-                                    ?.length ??
-                                0,
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const Divider();
-                  },
-                  itemCount:
-                      project.modules?[moduleCheck].subModules?.length ?? 0),
-            )
           ],
         ));
   }

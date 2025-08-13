@@ -49,11 +49,13 @@ class _TestScreenState extends ConsumerState<TestScreen> {
         shape: const CircleBorder(),
         backgroundColor: Colors.green,
         onPressed: () {
-          Navigator.push(
+          if(project.modules!.isNotEmpty){
+            Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => ProjectTestScreen(project: project),
               ));
+          }
         },
         child: Icon(
           Icons.play_arrow_rounded,
